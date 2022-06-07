@@ -18,6 +18,7 @@ const ProjectsSchema = new mongoose.Schema({
   summary: String,
   image: String,
   lien_github: String,
+  lien_web: String,
   content: String,
   techno: [{ type: mongoose.Types.ObjectId, ref: "Techno" }],
   comment: [],

@@ -2,10 +2,8 @@ const { ProjectModel } = require("../models/Projects");
 
 const projectController = {
   getProjects(req, res) {
-    console.log("==========> getProjects");
     const title = req.query.title;
     const query = title === "" ? {} : {title:{'$regex' : `^${title}`, '$options' : 'i'}};    
-    console.log(query);
     ProjectModel.find(query)
       .populate("techno")
       .then((projectsList) => {
@@ -14,7 +12,6 @@ const projectController = {
   },
 
   getProject(req, res) {
-    console.log("==========> getProject");
     const idProject = req.params.idProject;
     ProjectModel.findById(idProject)
       .populate("techno")
@@ -24,46 +21,35 @@ const projectController = {
   },
 
   addLikes(req, res) {
-    console.log("==========> addLikes");
     const idProject = req.params.idProject;
     ProjectModel.findOneAndUpdate(
       { _id: idProject },
       { $inc: { likes: 1 } },
       { new: true }
     ).then((result) => {
-      console.log(result);
       res.send(result);
     });
   },
 
   createProject(req, res) {
-    console.log("==========> createProject");
     const {
       title,
       summary,
       image,
       lien_github,
+      lien_web,
       content,
       techno,
       likes = 0,
     } = req.body;
     const user = req.user;
 
-    console.log(
-      title,
-      summary,
-      image,
-      lien_github,
-      content,
-      techno,
-      likes,
-      user
-    );
     ProjectModel.create({
       title,
       summary,
       image,
       lien_github,
+      lien_web,
       content,
       techno,
       likes,
@@ -77,13 +63,48 @@ const projectController = {
 
   searchByTitle(req, res) {
     const title = req.params.title;
-    console.log("searchByTitle", title);
 
     const query = title === "All" ? {} : {title:{'$regex' : `^${title}`, '$options' : 'i'}};
     ProjectModel.find(query)
       .populate("techno")
       .then((projectsList) => {
         res.send(projectsList);
+      });
+  },
+
+  deleteProject(req, res) {
+    const idProject = req.params.idProject;
+    ProjectModel.findByIdAndRemove(idProject)
+      .then((result) => {
+        res.send("project removed");
+      })
+      .catch((error) => {
+        console.log("Error deleteProject", error);
+        res.sendStatus(500);
+      });
+  },
+
+  updateProject(req, res) {
+    const idProject = req.params.idProject;
+    const { title, summary, image, lien_github, content, techno } = req.body;
+    const user = req.user;
+
+    const updateData = {
+      title,
+      summary,
+      image,
+      lien_github,
+      content,
+      techno,
+      user: user.id,
+    };
+    ProjectModel.findOneAndUpdate({ _id: idProject }, updateData, { new: true })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((error) => {
+        console.log("Error updateProject", error);
+        res.sendStatus(500);
       });
   },
 };

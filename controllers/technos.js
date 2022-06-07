@@ -12,9 +12,7 @@ const TechnosController = {
     },
 
     createTecnos(req, res) {
-        console.log("==========> createTecnos");
         const { label } = req.body;
-
         TechnosModel.create({ label })
           .then(() => {
             res.sendStatus(201);

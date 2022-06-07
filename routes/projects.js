@@ -13,5 +13,7 @@ router.get("/:idProject", projectController.getProject);
 
 router.post("/:idProject/likes", projectController.addLikes);
 router.post("/", checkAuth, projectController.createProject);
+router.delete("/:idProject", checkAuth, projectController.deleteProject);
+router.post("/:idProject", checkAuth, projectController.updateProject);
 
 module.exports = router;
