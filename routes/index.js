@@ -3,13 +3,14 @@ const TechnosController = require("../controllers/technos");
 var router = express.Router();
 
 const SiteModel = require("../models/Sites");
+const SiteController = require("../controllers/sites")
 
 const dataSite = {
-  title: "My Portfolio",
+  title: "Christian Ly",
   logo: "devimg.jpg",
-  footer: "2022 - MyPortfolio.com",
-  presentation_titre: "Bienvenue sur mon portfolio",
-  presentation_sum: "Découvrez l'ensemble de mes projets\net mes skills de développeur web",
+  footer: "Christian Ly - 2022",
+  presentation_titre: "Développeur FullStack Js",
+  presentation_sum: "Bienvenus sur mon portfolio et découvrez quelques projets qui ont été réalisés pendant la formation fullstack javascript",
   background_img: "backgroundsite.jpg"
 };
 
@@ -48,5 +49,7 @@ router.get("/sites", function (req, res) {
 
 router.get("/technos", TechnosController.getTecnos);
 router.post("/technos", TechnosController.createTecnos);
+
+router.post("/sites/:idSite", SiteController.updateSite);
 
 module.exports = router;
