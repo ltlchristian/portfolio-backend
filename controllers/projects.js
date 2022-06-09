@@ -37,6 +37,7 @@ const projectController = {
       summary,
       image,
       lien_github,
+      lien_github_back,
       lien_web,
       content,
       techno,
@@ -49,6 +50,7 @@ const projectController = {
       summary,
       image,
       lien_github,
+      lien_github_back,
       lien_web,
       content,
       techno,
@@ -86,7 +88,7 @@ const projectController = {
 
   updateProject(req, res) {
     const idProject = req.params.idProject;
-    const { title, summary, image, lien_github, content, techno } = req.body;
+    const { title, summary, image, lien_github, lien_github_back, lien_web, content, techno } = req.body;
     const user = req.user;
 
     const updateData = {
@@ -94,10 +96,13 @@ const projectController = {
       summary,
       image,
       lien_github,
+      lien_github_back,
+      lien_web,
       content,
       techno,
       user: user.id,
     };
+    console.log(updateData);
     ProjectModel.findOneAndUpdate({ _id: idProject }, updateData, { new: true })
       .then((result) => {
         res.send(result);
