@@ -3,11 +3,12 @@ const SiteModel = require("../models/Sites");
 const SiteController = {
   updateSite(req, res) {
     const idSite = req.params.idSite;
-    const { presentation_titre, presentation_sum } = req.body;
+    const { presentation_titre, presentation_sum, footer} = req.body;
 
     const updateData = {
         presentation_titre,
         presentation_sum,
+        footer,
     };
     console.log(idSite, updateData);
 
