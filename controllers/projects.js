@@ -8,7 +8,11 @@ const projectController = {
       .populate("techno")
       .then((projectsList) => {
         res.send(projectsList);
-      });
+      })
+      .catch((error) => {
+        console.log("getProjects", error);
+        res.sendStatus(500);
+      }); 
   },
 
   getProject(req, res) {
@@ -17,6 +21,10 @@ const projectController = {
       .populate("techno")
       .then((project) => {
         res.send(project);
+      })
+      .catch((error) => {
+        console.log("getProject", error);
+        res.sendStatus(500);
       });
   },
 
@@ -28,7 +36,11 @@ const projectController = {
       { new: true }
     ).then((result) => {
       res.send(result);
-    });
+    })
+    .catch((error) => {
+      console.log("addLikes", error);
+      res.sendStatus(500);
+    });    
   },
 
   createProject(req, res) {
@@ -102,7 +114,6 @@ const projectController = {
       techno,
       user: user.id,
     };
-    console.log(updateData);
     ProjectModel.findOneAndUpdate({ _id: idProject }, updateData, { new: true })
       .then((result) => {
         res.send(result);

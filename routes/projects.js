@@ -5,8 +5,6 @@ const projectController = require("../controllers/projects");
 
 const { checkAuth } = require("./checkAuth");
 
-/* GET projects listing. */
-
 router.get("/search/:title", projectController.searchByTitle);
 router.get("/", projectController.getProjects);
 router.get("/:idProject", projectController.getProject);

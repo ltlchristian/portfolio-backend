@@ -10,7 +10,6 @@ const SiteController = {
         presentation_sum,
         footer,
     };
-    console.log(idSite, updateData);
 
     SiteModel.findOneAndUpdate({ _id: idSite }, updateData, { new: true })
       .then((result) => {

@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
 router.post("/signup", async (req, res) => {
   const { email, password, confirmPassword } = req.body;
 
-  // a-t-on toutes les variables nécessaires ?
+  // checks
   if (!email) return res.sendStatus(400);
   if (!password) return res.sendStatus(400);
   if (!confirmPassword) return res.sendStatus(400);
